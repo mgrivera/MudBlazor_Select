@@ -1,23 +1,16 @@
-﻿using Microsoft.FluentUI.AspNetCore.Components;
-using scrweb_blazor.Models.General;
-using Microsoft.EntityFrameworkCore;
-using MudBlazor;
-using scrweb_blazor.Models.EF_Core;
+﻿using MudBlazor;
 
 namespace scrweb_blazor.Components.Pages.Tablas.Coberturas
 {
     public partial class Coberturas
     {
-        // =====================================================================================
-        // para que esta variable tenga valores desde el inicio y no falle el FluentMessage por valores en null
-        FluentMessageBar_params? fluentUIMessageBar = new FluentMessageBar_params();
-
-        // aquí es donde leemos cuando se abre la página 
+        // Detail's List 
         private List<Cobertura_Form_Item>? _coberturas;
 
-        // leemos los ramos en una lista pues el usuario puede asociar un ramo a cada cobertura 
+        // Parent's List 
         private List<Ramo>? _ramos; 
 
+        // Just to use Alerts from MudBlazor 
         AlertSettings _alertSettings = new(Severity.Info, false, "");
 
         protected override async Task OnInitializedAsync()
@@ -41,16 +34,16 @@ namespace scrweb_blazor.Components.Pages.Tablas.Coberturas
         private List<Cobertura_Form_Item> GetListItems()
         {
             var list = new List<Cobertura_Form_Item>() {
-                new Cobertura_Form_Item { Id = "number 1", Descripcion = "number 1", Abreviatura = "number 1", RamoId = "ramo 1" },
-                new Cobertura_Form_Item { Id = "number 2", Descripcion = "number 2", Abreviatura = "number 2", RamoId = "ramo 2" },
-                new Cobertura_Form_Item { Id = "number 3", Descripcion = "number 3", Abreviatura = "number 3", RamoId = "ramo 3" },
-                new Cobertura_Form_Item { Id = "number 4", Descripcion = "number 4", Abreviatura = "number 4", RamoId = "ramo 4" },
-                new Cobertura_Form_Item { Id = "number 5", Descripcion = "number 5", Abreviatura = "number 5", RamoId = "ramo 5" },
-                new Cobertura_Form_Item { Id = "number 6", Descripcion = "number 6", Abreviatura = "number 6", RamoId = "ramo 1" },
-                new Cobertura_Form_Item { Id = "number 7", Descripcion = "number 7", Abreviatura = "number 7", RamoId = "ramo 2" },
-                new Cobertura_Form_Item { Id = "number 8", Descripcion = "number 8", Abreviatura = "number 8", RamoId = "ramo 3" },
-                new Cobertura_Form_Item { Id = "number 9", Descripcion = "number 9", Abreviatura = "number 9", RamoId = "ramo 4" },
-                new Cobertura_Form_Item { Id = "number 10", Descripcion = "number 10", Abreviatura = "number 10", RamoId = "ramo 5" },
+                new Cobertura_Form_Item { Id = "number 1", Descripcion = "number 1", RamoId = "ramo 1" },
+                new Cobertura_Form_Item { Id = "number 2", Descripcion = "number 2", RamoId = "ramo 2" },
+                new Cobertura_Form_Item { Id = "number 3", Descripcion = "number 3", RamoId = "ramo 3" },
+                new Cobertura_Form_Item { Id = "number 4", Descripcion = "number 4", RamoId = "ramo 4" },
+                new Cobertura_Form_Item { Id = "number 5", Descripcion = "number 5", RamoId = "ramo 5" },
+                new Cobertura_Form_Item { Id = "number 6", Descripcion = "number 6", RamoId = "ramo 1" },
+                new Cobertura_Form_Item { Id = "number 7", Descripcion = "number 7", RamoId = "ramo 2" },
+                new Cobertura_Form_Item { Id = "number 8", Descripcion = "number 8", RamoId = "ramo 3" },
+                new Cobertura_Form_Item { Id = "number 9", Descripcion = "number 9", RamoId = "ramo 4" },
+                new Cobertura_Form_Item { Id = "number 10", Descripcion = "number 10", RamoId = "ramo 5" },
             };
 
             return list;
@@ -67,6 +60,17 @@ namespace scrweb_blazor.Components.Pages.Tablas.Coberturas
             };
 
             return list;
+        }
+
+        // =====================================================================================================
+        // this is the type for the List items 
+        public class Cobertura_Form_Item
+        {
+            public string Id { get; set; } = string.Empty;
+
+            public string Descripcion { get; set; } = string.Empty;
+
+            public string? RamoId { get; set; } = string.Empty;
         }
 
         // =====================================================================================================

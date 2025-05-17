@@ -2,21 +2,10 @@
 @rendermode InteractiveServer
 @layout Components.Layout.TablasLayout
 
-@inject IConfiguration Configuration
-@inject IDbContextFactory<dbContext> DbFactory
-
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.EntityFrameworkCore
-@using scrweb_blazor.Models.EF_Core
-@using scrweb_blazor.Models.General
-@using scrweb_blazor.Components.Pages.GeneralPages
-
 @using MudBlazor
 
-@attribute [Authorize(Roles = "admin, user")]
-
 @if (_coberturas is null) {
-    <LoadingPageComponent />
+    <MudText>Loading ... </MudText>
 
     @if (_alertSettings.Show)
     {
@@ -65,12 +54,6 @@
                                     Filterable="false"
                                     Sortable="true" />
 
-                    <PropertyColumn Property="@(p => p.Abreviatura)" 
-                                    Sortable="true"
-                                    HeaderStyle="font-weight: bold; "
-                                    Filterable="false"
-                                    Title="Abreviatura" />
-
                     <TemplateColumn HeaderStyle="font-weight: bold; " 
                                     Title="Ramo">
 
@@ -78,11 +61,6 @@
                             <MudSelect @bind-Value="context.Item.RamoId"
                                         Dense="true"
                                         Margin="@Margin.Dense">
-
-                                @{
-                                    var item = new Ramo_dto { Id = "", Descripcion = "" };
-                                    <MudSelectItem Value="@item.Id">@item.Descripcion</MudSelectItem>
-                                }
 
                                 @if (_ramos is not null)
                                 {
