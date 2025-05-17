@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\Pages\GeneralComponents\**" />
     <Compile Remove="UploadedFiles\**" />
+    <Content Remove="Components\Pages\GeneralComponents\**" />
     <Content Remove="UploadedFiles\**" />
+    <EmbeddedResource Remove="Components\Pages\GeneralComponents\**" />
     <EmbeddedResource Remove="UploadedFiles\**" />
+    <None Remove="Components\Pages\GeneralComponents\**" />
     <None Remove="UploadedFiles\**" />
   </ItemGroup>
 
@@ -38,7 +42,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Pages\GeneralComponents\" />
     <Folder Include="wwwroot\files\" />
     <Folder Include="wwwroot\fileUploads\temp\" />
     <Folder Include="wwwroot\wordTemplates\temp\" />
