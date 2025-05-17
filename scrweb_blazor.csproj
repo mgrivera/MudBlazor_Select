@@ -17,12 +17,6 @@
     <None Remove="Components\Pages\GeneralComponents\**" />
     <None Remove="UploadedFiles\**" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.*-*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.*-*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.*-*" />
-  </ItemGroup>
   <ItemGroup>
 	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.8" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.11.8" />
@@ -41,15 +35,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\files\" />
-    <Folder Include="wwwroot\fileUploads\temp\" />
-    <Folder Include="wwwroot\wordTemplates\temp\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Update="wwwroot\files;wwwroot\fileUploads;wwwroot\wordTemplates;" CopyToPublishDirectory="Never" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="efpt.config.json.user" />
-  </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_x0020_-_x0020_local_1json__JsonSchema="https://alec016.github.io/Custom-Machinery/Json%20Schema/src/main/resources/schemas/custom_machinery_machine.json" appsettings_1json__JsonSchema="https://json.schemastore.org/appsscript.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/appsscript.json" /></VisualStudio></ProjectExtensions>
 </Project>

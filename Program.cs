@@ -1,6 +1,6 @@
 //using Microsoft.AspNetCore.Components.Authorization;
 //using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
 using scrweb_blazor.Components;
 //using scrweb_blazor.Components.Account;
@@ -37,7 +37,7 @@ builder.Services.AddMudServices();
 var connectionString = builder.Configuration.GetConnectionString("scrweb_blazor") ?? throw new InvalidOperationException("Connection string 'scrweb_blazor' not found.");
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    //.AddRoles<IdentityRole>()
@@ -61,7 +61,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+    //app.UseMigrationsEndPoint();
 }
 else
 {
