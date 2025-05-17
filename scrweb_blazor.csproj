@@ -8,21 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.35" />
-    <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.4" />
+    <Compile Remove="UploadedFiles\**" />
+    <Content Remove="UploadedFiles\**" />
+    <EmbeddedResource Remove="UploadedFiles\**" />
+    <None Remove="UploadedFiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.*-*" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.*-*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.*-*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.*-*" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.2" />
   </ItemGroup>
   <ItemGroup>
 	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.8" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.11.8" />
-    <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
     <PackageReference Include="MudBlazor" Version="8.6.0" />
-    <PackageReference Include="OpenXmlPowerTools" Version="4.5.3.2" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings - facere - local.Development.json">
@@ -37,15 +38,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Pages\Cobranzas\" />
-    <Folder Include="Components\Pages\Consultas\Cobranzas\" />
-    <Folder Include="Components\Pages\Consultas\Emision\" />
-    <Folder Include="Components\Pages\Entidades\" />
     <Folder Include="Components\Pages\GeneralComponents\" />
-    <Folder Include="Components\Pages\Utilities\" />
-    <Folder Include="Services\Entidades\" />
-    <Folder Include="Services\Mongodb\" />
-    <Folder Include="UploadedFiles\" />
     <Folder Include="wwwroot\files\" />
     <Folder Include="wwwroot\fileUploads\temp\" />
     <Folder Include="wwwroot\wordTemplates\temp\" />

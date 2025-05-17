@@ -74,7 +74,7 @@ namespace scrweb_blazor.Components.Pages.Tablas.Coberturas
         }
 
         // =====================================================================================================
-        // para leer los ramos desde el db 
+        // this is the Type for the Select items
         private record Ramo(string Id, string Descripcion);
 
         // ===============================================================================================================

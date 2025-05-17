@@ -1,15 +1,12 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@* @using Microsoft.AspNetCore.Identity *@
 @using scrweb_blazor.Data
-@using scrweb_blazor.Models.General
-@using scrweb_blazor.Services.Generales
 
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
-@using Microsoft.AspNetCore.Authorization
-@inject UserManager<ApplicationUser> _UserManager
+@* @using Microsoft.AspNetCore.Authorization
+@inject UserManager<ApplicationUser> _UserManager *@
 
-@using scrweb_blazor.Services.Identity
 @rendermode InteractiveServer
 
 @implements IDisposable
@@ -26,9 +23,7 @@
 
             <FluentNavLink Href="/tablas" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">Tablas</FluentNavLink>
 
-            <FluentNavLink Href="/administracion" Icon="@(new Icons.Regular.Size20.NumberSymbolSquare())" IconColor="Color.Accent">Administracion</FluentNavLink>
-          
-            <FluentNavLink Href="auth" Icon="@(new Icons.Regular.Size20.LockClosedKey())" IconColor="Color.Accent">Auth Required</FluentNavLink>
+          @*   <FluentNavLink Href="auth" Icon="@(new Icons.Regular.Size20.LockClosedKey())" IconColor="Color.Accent">Auth Required</FluentNavLink>
             <AuthorizeView>
                 <Authorized>
                     <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
@@ -39,7 +34,7 @@
                     </form>
                 </Authorized>
 
-            </AuthorizeView>
+            </AuthorizeView> *@
         </FluentNavMenu>
     </nav>
 </div>
@@ -53,62 +48,16 @@
     private Task<AuthenticationState>? authenticationStateTask { get; set; }
     ApplicationUser? _user;
 
-    // =====================================================================================
-    // para que esta variable tenga valores desde el inicio y no falle el FluentMessage por valores en null
-    FluentMessageBar_params? fluentUIMessageBar = new FluentMessageBar_params();
-
-    private string _connectionString = string.Empty;
-    private int? _cantidadEmpresasUsuariasRegistradas; 
-
     protected override async Task OnInitializedAsync()
     {
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         NavigationManager.LocationChanged += OnLocationChanged;
-
-        string message = string.Empty;
-
-        // ======================================================================
-        // 1) intentamos leer el identity del authenticated user
-        dynamic result = await leerInfoUsuario();
-
-        if (result.error)
-        {
-            fluentUIMessageBar = new FluentMessageBar_params
-                {
-                    Title = "<h5>ScrWeb - Riesgos</h5>",
-                    Intent = MessageIntent.Error,
-                    Visible = true,
-                    Text = result.message
-                };
-
-            return;
-        }
-
-        _user = result.user;
-
-        // ===============================================================================
-        // nótese cómo obtenemos el connection string
-        _connectionString = Configuration.GetSection("ConnectionStrings")["scrweb_blazor"]!;
-
-        // ========================================================================
-        // leemos la cantidad de empresas registradas; si hay solo una, no mostramos
-        // la opción Selecciona compañía en este menú 
-        var leerEmpresaUsuariaSeleccionada = new LeerEmpresaUsuariaSeleccionada(_connectionString);
-        _cantidadEmpresasUsuariasRegistradas = await leerEmpresaUsuariaSeleccionada.EmpresasUsuariasCount(_user.Id);
     }
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
         StateHasChanged();
-    }
-
-    private async Task<dynamic> leerInfoUsuario()
-    {
-        var getAuthenticatedUser = new GetAuthenticatedUser(authenticationStateTask, _UserManager);
-        dynamic result = await getAuthenticatedUser.GetUser();
-
-        return result;
     }
 
     public void Dispose()
