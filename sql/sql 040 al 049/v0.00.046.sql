@@ -1,0 +1,27 @@
+﻿/*    
+	  Jueves, 10 de Abril de 2.025 - v0.00.046.sql 
+	  
+	  Compañías: agregamos un Tipo 
+*/
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Companias ADD
+	Tipo nvarchar(10) NULL
+GO
+ALTER TABLE dbo.Companias SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+Delete From tVersion
+Insert Into tVersion(VersionActual, Fecha) Values('v0.00.046', GetDate()) 
+

@@ -1,0 +1,52 @@
+﻿@page "/generales/seleccionarCia"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using scrweb_blazor.Data
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+
+@inject IConfiguration Configuration
+@inject UserManager<ApplicationUser> _UserManager
+
+@attribute [Authorize(Roles = "admin, user")]
+
+@if (_listaEmpresas is null)
+{
+    <LoadingPageComponent />
+
+    <FluentMessageBar Title="@fluentUIMessageBar!.Title" Intent="@fluentUIMessageBar!.Intent" Visible="@fluentUIMessageBar!.Visible">
+        @((MarkupString)fluentUIMessageBar!.Text)
+    </FluentMessageBar>
+}
+else
+{
+    <div style="height: 100%; width: 100%; border: 1px solid lightgray; padding: 15px; border-radius: 8px;">
+        <FluentStack Orientation="Orientation.Vertical" VerticalGap="30" VerticalAligment="VerticalAligment.">
+            <div>
+                <h3>Seleccionar una compañía <em>Contab</em></h3>
+            </div>
+            <div>
+                <FluentMessageBar Title="@fluentUIMessageBar!.Title" Intent="@fluentUIMessageBar!.Intent" Visible="@fluentUIMessageBar!.Visible">
+                    @((MarkupString)fluentUIMessageBar!.Text)
+                </FluentMessageBar>
+            </div>
+
+            <div style="height: 100%; width: 100%; ">
+                <Microsoft.AspNetCore.Components.QuickGrid.QuickGrid Items="_listaEmpresas!.AsQueryable()" Virtualize="true" ItemKey="@(p => p.Id)">
+
+                    <Microsoft.AspNetCore.Components.QuickGrid.TemplateColumn Title="Empresas usuarias">
+                        <a onclick="@(() => registrarEmpresaSeleccionada(@context.Id))" role="button" style="cursor: pointer; color: green; text-decoration: underline; ">
+                            @context.Nombre
+                        </a>
+                    </Microsoft.AspNetCore.Components.QuickGrid.TemplateColumn>
+
+                </Microsoft.AspNetCore.Components.QuickGrid.QuickGrid>
+            </div>
+        </FluentStack>
+    </div>    
+}
+
+@code {
+}

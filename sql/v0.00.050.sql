@@ -1,0 +1,106 @@
+﻿/*    
+	  Martes, 05 de Mayo de 2.025 - v0.00.050.sql 
+	  
+	  Agregamos la columna Default a las tablas: 
+	  Monedas, Ramos, Tipos y Países 
+*/
+
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Tipos ADD
+	Defaut bit NULL
+GO
+ALTER TABLE dbo.Tipos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Monedas ADD
+	Defaut bit NULL
+GO
+ALTER TABLE dbo.Monedas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Ramos ADD
+	Defaut bit NULL
+GO
+ALTER TABLE dbo.Ramos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Paises ADD
+	Defaut bit NULL
+GO
+ALTER TABLE dbo.Paises SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+
+
+
+
+
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+EXECUTE sp_rename N'dbo.Monedas.Defaut', N'Tmp_Defecto', 'COLUMN' 
+GO
+EXECUTE sp_rename N'dbo.Monedas.Tmp_Defecto', N'Defecto', 'COLUMN' 
+GO
+ALTER TABLE dbo.Monedas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+EXECUTE sp_rename N'dbo.Ramos.Defaut', N'Tmp_Defecto_1', 'COLUMN' 
+GO
+EXECUTE sp_rename N'dbo.Ramos.Tmp_Defecto_1', N'Defecto', 'COLUMN' 
+GO
+ALTER TABLE dbo.Ramos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+EXECUTE sp_rename N'dbo.Paises.Defaut', N'Tmp_Defecto_2', 'COLUMN' 
+GO
+EXECUTE sp_rename N'dbo.Paises.Tmp_Defecto_2', N'Defecto', 'COLUMN' 
+GO
+ALTER TABLE dbo.Paises SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+EXECUTE sp_rename N'dbo.Tipos.Defaut', N'Tmp_Defecto_3', 'COLUMN' 
+GO
+EXECUTE sp_rename N'dbo.Tipos.Tmp_Defecto_3', N'Defecto', 'COLUMN' 
+GO
+ALTER TABLE dbo.Tipos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+
+Delete From tVersion
+Insert Into tVersion(VersionActual, Fecha) Values('v0.00.050', GetDate()) 
+

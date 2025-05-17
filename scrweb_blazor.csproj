@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-scrweb_blazor-c7fa0b75-d1c8-4400-b599-be5f7989406b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.*-*" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.*-*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.*-*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.*-*" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.8" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.11.8" />
+    <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
+    <PackageReference Include="MudBlazor" Version="8.6.0" />
+    <PackageReference Include="OpenXmlPowerTools" Version="4.5.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings - facere - local.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings - facere - local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings - arsa - local.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings - arsa - local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\Pages\Cobranzas\" />
+    <Folder Include="Components\Pages\Consultas\Cobranzas\" />
+    <Folder Include="Components\Pages\Consultas\Emision\" />
+    <Folder Include="Components\Pages\Entidades\" />
+    <Folder Include="Components\Pages\GeneralComponents\" />
+    <Folder Include="Components\Pages\Utilities\" />
+    <Folder Include="Services\Entidades\" />
+    <Folder Include="Services\Mongodb\" />
+    <Folder Include="UploadedFiles\" />
+    <Folder Include="wwwroot\files\" />
+    <Folder Include="wwwroot\fileUploads\temp\" />
+    <Folder Include="wwwroot\wordTemplates\temp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings - facere - smarter.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings - facere - smarter.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\files;wwwroot\fileUploads;wwwroot\wordTemplates;" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="efpt.config.json.user" />
+  </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_x0020_-_x0020_local_1json__JsonSchema="https://alec016.github.io/Custom-Machinery/Json%20Schema/src/main/resources/schemas/custom_machinery_machine.json" appsettings_1json__JsonSchema="https://json.schemastore.org/appsscript.json" /></VisualStudio></ProjectExtensions>
+</Project>

@@ -1,0 +1,29 @@
+﻿/* unvisited link */
+a:link {
+    font-family: 'Helvetica', 'Times New Roman', serif;
+    color: white;
+    font-size: 13px;
+}
+
+/* visited link */
+a:visited {
+    font-family: 'Helvetica', 'Times New Roman', serif;
+    color: white;
+    font-size: 13px;
+}
+
+/* mouse over link */
+a:hover {
+    font-family: 'Helvetica', 'Times New Roman', serif;
+    color: white;
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* selected link */
+a:active {
+    font-family: 'Helvetica', 'Times New Roman', serif;
+    color: white;
+    font-size: 13px;
+    font-style: italic;
+}

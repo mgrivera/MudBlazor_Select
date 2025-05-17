@@ -1,0 +1,18 @@
+﻿/*para aplicar estilo al editMode (*, |, x)  al principio de cada row - cuando el EditModel existe (puede ser null)  */
+::deep .editMode_1 {
+    font-size: medium;
+    font-weight: bold;
+    color: darkblue;
+}
+
+::deep .editMode_2 {
+    font-size: medium;
+    font-weight: bold;
+    color: firebrick;
+}
+
+::deep .editMode_3 {
+    font-size: medium;
+    font-weight: bold;
+    color: darkred;
+}

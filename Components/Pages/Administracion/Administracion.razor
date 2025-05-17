@@ -1,0 +1,64 @@
+﻿@page "/administracion/administration"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@layout Components.Layout.AdministracionLayout
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject UserManager<ApplicationUser> _UserManager
+@inject RoleManager<IdentityRole> _RoleManager
+
+@inject IConfiguration Configuration
+
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Identity;
+@using System.Data
+@using Microsoft.Data.SqlClient
+@using scrweb_blazor.Data
+@using scrweb_blazor.Models.General
+
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+
+<h3>Administration</h3>
+
+<FluentStack>
+    <div>
+        <FluentStack>
+            <FluentMessageBar Title="@fluentUIMessageBar!.Title" Intent="@fluentUIMessageBar!.Intent" Visible="@fluentUIMessageBar!.Visible">
+                @((MarkupString)fluentUIMessageBar!.Text)
+            </FluentMessageBar>
+        </FluentStack>
+        <br /><br />
+        <FluentButton Appearance="Appearance.Accent"
+                      IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
+                      Loading="@loadingButton1"
+                      OnClick="@(async () => await LeerYCrearRolesAdminYUser())">
+            Iniciar proceso
+        </FluentButton>
+    </div>
+    <div>
+        <FluentStack HorizontalAlignment="HorizontalAlignment.Right">
+            <div>
+                <FluentSelect TOption="ApplicationUser"
+                              Label="Seleccione un usuario"
+                              Items="@userList"
+                              Height="250px"
+                              OptionValue="@(p => p.UserName)"
+                              OptionText="@(p => p.UserName)"
+                              @bind-Value="@selectedUserFromList"
+                              @bind-SelectedOption="@selectedUser">
+                </FluentSelect>
+            </div>
+
+            <FluentButton Appearance="Appearance.Accent"
+                          Disabled="@buttonDisabled"
+                          IconStart="@(new Icons.Regular.Size16.ArrowClockwise())"
+                          Loading="@loadingButton2"
+                          OnClick="@(async () => await asignarRolUser())">
+                Asignar rol 'user'
+            </FluentButton>
+        </FluentStack>
+    </div>
+</FluentStack>
+
+@code {
+}

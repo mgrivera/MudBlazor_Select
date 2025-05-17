@@ -1,0 +1,159 @@
+﻿/*    
+	  Sábado, 28 de Septiembre de 2.024  -   v0.00.026.sql 
+	  
+	  Agregamos las nuevas tablas para el control de remesas: 
+	  Bancos y Remesas 
+*/
+
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Bancos]') AND type in (N'U'))
+DROP TABLE [dbo].[Bancos]
+GO
+
+
+
+CREATE TABLE dbo.Bancos
+	(
+	Id nvarchar(10) NOT NULL,
+	Nombre nvarchar(50) NOT NULL,
+	Abreviatura nvarchar(15) NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.Bancos ADD CONSTRAINT
+	PK_Bancos PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.Bancos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Monedas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Companias SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Empresa SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Bancos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Remesas
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	Fecha date NOT NULL,
+	CompaniaId nvarchar(10) NOT NULL,
+	MonedaId nvarchar(10) NOT NULL,
+	MiSu nchar(2) NOT NULL,
+	Tasa decimal(10, 6) NOT NULL,
+	FCerrada date NULL,
+	Observaciones nvarchar(500) NOT NULL,
+	InstPago_Numero nvarchar(25) NOT NULL,
+	InstPago_Tipo nvarchar(6) NOT NULL,
+	InstPago_Banco nvarchar(10) NOT NULL,
+	InstPago_Monto money NOT NULL,
+	Cia nvarchar(10) NOT NULL,
+	FRegistro datetime NOT NULL,
+	Usuario nvarchar(25) NOT NULL,
+	FUltAct datetime NULL,
+	UltUsuario nvarchar(25) NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.Remesas ADD CONSTRAINT
+	PK_Remesas PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.Remesas ADD CONSTRAINT
+	FK_Remesas_Bancos FOREIGN KEY
+	(
+	InstPago_Banco
+	) REFERENCES dbo.Bancos
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.Remesas ADD CONSTRAINT
+	FK_Remesas_Monedas FOREIGN KEY
+	(
+	MonedaId
+	) REFERENCES dbo.Monedas
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.Remesas ADD CONSTRAINT
+	FK_Remesas_Companias FOREIGN KEY
+	(
+	CompaniaId
+	) REFERENCES dbo.Companias
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.Remesas ADD CONSTRAINT
+	FK_Remesas_Empresa FOREIGN KEY
+	(
+	Cia
+	) REFERENCES dbo.Empresa
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.Remesas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+
+
+Delete From tVersion
+Insert Into tVersion(VersionActual, Fecha) Values('v0.00.026', GetDate()) 
+

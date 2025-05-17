@@ -1,0 +1,113 @@
+﻿@page "/tablas/coberturas"
+@rendermode InteractiveServer
+@layout Components.Layout.TablasLayout
+
+@inject IConfiguration Configuration
+@inject IDbContextFactory<dbContext> DbFactory
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.EntityFrameworkCore
+@using scrweb_blazor.Models.EF_Core
+@using scrweb_blazor.Models.General
+@using scrweb_blazor.Components.Pages.GeneralPages
+
+@using MudBlazor
+
+@attribute [Authorize(Roles = "admin, user")]
+
+@if (_coberturas is null) {
+    <LoadingPageComponent />
+
+    @if (_alertSettings.Show)
+    {
+        <MudAlert Severity="@_alertSettings.Tipo" ShowCloseIcon="true" CloseIconClicked="CloseAlert">@((MarkupString)_alertSettings.Text)</MudAlert>
+    }
+} else 
+{ 
+    <MudGrid>
+        <MudItem xs="12" sm="12">
+            <h3><em><u><span style="white-space: nowrap;">Coberturas</span></u></em></h3>
+        </MudItem>
+
+        <MudItem xs="12" sm="12">
+            @if (_alertSettings.Show)
+            {
+                <MudAlert Severity="@_alertSettings.Tipo" ShowCloseIcon="true" CloseIconClicked="CloseAlert">@((MarkupString)_alertSettings.Text)</MudAlert>
+            }
+        </MudItem>
+
+        <MudItem xs="12" sm="12">
+
+            <MudDataGrid T="Cobertura_Form_Item"
+                        Items="@_coberturas"
+                        Virtualize="true"
+                        FixedHeader="true"
+                        Height="350px"
+                        Hover="true"
+                        Dense="true"
+                        Striped="true"
+                        Bordered="true"
+                        ReadOnly="false"
+                        EditMode="DataGridEditMode.Cell"
+                        Filterable="false">
+
+                <Columns>
+                
+                    <PropertyColumn Property="@(p => p.Id)" 
+                                    Filterable="false"
+                                    HeaderStyle="font-weight: bold; "
+                                    Sortable="false"
+                                    Title="Id" />
+
+                    <PropertyColumn Property="@(p => p.Descripcion)"
+                                    Title="Descripcion"
+                                    HeaderStyle="font-weight: bold; "
+                                    Filterable="false"
+                                    Sortable="true" />
+
+                    <PropertyColumn Property="@(p => p.Abreviatura)" 
+                                    Sortable="true"
+                                    HeaderStyle="font-weight: bold; "
+                                    Filterable="false"
+                                    Title="Abreviatura" />
+
+                    <TemplateColumn HeaderStyle="font-weight: bold; " 
+                                    Title="Ramo">
+
+                        <EditTemplate>
+                            <MudSelect @bind-Value="context.Item.RamoId"
+                                        Dense="true"
+                                        Margin="@Margin.Dense">
+
+                                @{
+                                    var item = new Ramo_dto { Id = "", Descripcion = "" };
+                                    <MudSelectItem Value="@item.Id">@item.Descripcion</MudSelectItem>
+                                }
+
+                                @if (_ramos is not null)
+                                {
+                                    foreach (var ramo in _ramos)
+                                    {
+                                        <MudSelectItem Value="@ramo.Id">@ramo.Descripcion</MudSelectItem>
+                                    }
+                                }
+                                
+                            </MudSelect>
+                        </EditTemplate>
+                    </TemplateColumn>
+
+                </Columns>
+                    
+            </MudDataGrid>
+        </MudItem>
+
+    </MudGrid>        
+}
+
+@code {
+}
+
+<MudBlazor.MudThemeProvider />
+<MudBlazor.MudPopoverProvider />
+<MudBlazor.MudDialogProvider />
+<MudBlazor.MudSnackbarProvider />

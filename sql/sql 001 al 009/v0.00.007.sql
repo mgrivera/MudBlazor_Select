@@ -1,0 +1,92 @@
+﻿/*    
+	  Martes, 08 de Mayo de 2.024  -   v0.00.007.sql 
+	  
+	  Agregamos la tabla RiesgosCoberturas 
+*/
+
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Monedas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Coberturas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Riesgos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.RiesgosCoberturas
+	(
+	Id int NOT NULL IDENTITY (1, 1),
+	RiesgoId int NOT NULL,
+	CoberturaId nvarchar(10) NOT NULL,
+	MonedaId nvarchar(10) NOT NULL,
+	SumaAsegurada money NOT NULL,
+	Limite money NULL,
+	Tasa decimal(10, 6) NULL,
+	Prima money NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.RiesgosCoberturas ADD CONSTRAINT
+	PK_RiesgosCoberturas PRIMARY KEY CLUSTERED 
+	(
+	Id
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.RiesgosCoberturas ADD CONSTRAINT
+	FK_RiesgosCoberturas_Riesgos FOREIGN KEY
+	(
+	RiesgoId
+	) REFERENCES dbo.Riesgos
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  CASCADE 
+	
+GO
+ALTER TABLE dbo.RiesgosCoberturas ADD CONSTRAINT
+	FK_RiesgosCoberturas_Coberturas FOREIGN KEY
+	(
+	CoberturaId
+	) REFERENCES dbo.Coberturas
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.RiesgosCoberturas ADD CONSTRAINT
+	FK_RiesgosCoberturas_Monedas FOREIGN KEY
+	(
+	MonedaId
+	) REFERENCES dbo.Monedas
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.RiesgosCoberturas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+
+Delete From tVersion
+Insert Into tVersion(VersionActual, Fecha) Values('v0.00.007', GetDate()) 

@@ -1,0 +1,43 @@
+﻿/*    
+	  Lunes, 7 de Abril de 2.025 - v0.00.044.sql 
+	  
+	  Agregamos la columna Ramo a las coberturas 
+*/
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Ramos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Coberturas ADD
+	RamoId nvarchar(10) NULL
+GO
+ALTER TABLE dbo.Coberturas ADD CONSTRAINT
+	FK_Coberturas_Ramos FOREIGN KEY
+	(
+	RamoId
+	) REFERENCES dbo.Ramos
+	(
+	Id
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.Coberturas SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+Delete From tVersion
+Insert Into tVersion(VersionActual, Fecha) Values('v0.00.044', GetDate()) 
+
