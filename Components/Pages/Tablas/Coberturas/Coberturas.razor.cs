@@ -2,6 +2,7 @@
 using scrweb_blazor.Models.General;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
+using scrweb_blazor.Models.EF_Core;
 
 namespace scrweb_blazor.Components.Pages.Tablas.Coberturas
 {
@@ -17,56 +18,16 @@ namespace scrweb_blazor.Components.Pages.Tablas.Coberturas
         // leemos los ramos en una lista pues el usuario puede asociar un ramo a cada cobertura 
         private List<Ramo>? _ramos; 
 
-        // el usuario puede indicar un filtro para filtrar la lista 
-        private string _userFilter = string.Empty;
-
-        private string _connectionString = string.Empty;
-
-        // para bloquear el Id en items que ya existen. El usuario solo puede editar en items nuevos 
-        private bool _lockIdInputField = false;
-
         AlertSettings _alertSettings = new(Severity.Info, false, "");
-        private bool _readOnly = true;
-        private bool _userIsEditing = false;
-        private bool _grabarLoading = false;
 
         protected override async Task OnInitializedAsync()
         {
-            dynamic result = new { };
+            _coberturas = GetListItems();
+            _ramos = GetRamoItems();
 
-            // ---------------------------------------------------------------------------------------
-            // nótese cómo obtenemos el connection string
-            _connectionString = Configuration.GetSection("ConnectionStrings")["scrweb_blazor"]!;
-
-            // lo primero que debemos hacer es intentar leer el item en el db; puede venir o no (null) ...
-            var services = new Services(_connectionString);
-            result = await services.LeerCoberturas();
-
-            if (result.error)
-            {
-                fluentUIMessageBar = new FluentMessageBar_params
-                {
-                    Title = "<h5>ScrWeb - Tablas - Coberturas</h5>",
-                    Intent = MessageIntent.Error,
-                    Visible = true,
-                    Text = result.message
-                };
-
-                StateHasChanged(); 
-                return;
-            }
-
-            _coberturas = result.coberturas;
-
-            // ---------------------------------------------------------------------------------------
-            // usamos el dbFactory para instanciar un dbContext
-            using var dbcontext = DbFactory!.CreateDbContext();
-
-            // ---------------------------------------------------------------------------------------
-            // leemos los ramos desde el db 
-            _ramos = await dbcontext.Ramos.OrderBy(x => x.Descripcion)
-                                    .Select(x => new Ramo(x.Id, x.Descripcion, x.Abreviatura))
-                                    .ToListAsync();
+            // para mostrar un mensaje al usuario 
+            string message = $"Ok, hemos leído <b>{10}</b> coberturas desde la base de datos.";
+            _alertSettings = new(Severity.Info, true, message);
         }
 
         // ===============================================================================
@@ -77,33 +38,40 @@ namespace scrweb_blazor.Components.Pages.Tablas.Coberturas
             StateHasChanged();
         }
 
-        // ============================================================================================
-        // para mostrar la descripción del ramo en el grid, cuando el usuario *no* está editando 
-        private string RamoDescripcion(string? ramoId)
+        private List<Cobertura_Form_Item> GetListItems()
         {
-            if (ramoId is null)
-            {
-                return "";
-            }
+            var list = new List<Cobertura_Form_Item>() {
+                new Cobertura_Form_Item { Id = "number 1", Descripcion = "number 1", Abreviatura = "number 1", RamoId = "ramo 1" },
+                new Cobertura_Form_Item { Id = "number 2", Descripcion = "number 2", Abreviatura = "number 2", RamoId = "ramo 2" },
+                new Cobertura_Form_Item { Id = "number 3", Descripcion = "number 3", Abreviatura = "number 3", RamoId = "ramo 3" },
+                new Cobertura_Form_Item { Id = "number 4", Descripcion = "number 4", Abreviatura = "number 4", RamoId = "ramo 4" },
+                new Cobertura_Form_Item { Id = "number 5", Descripcion = "number 5", Abreviatura = "number 5", RamoId = "ramo 5" },
+                new Cobertura_Form_Item { Id = "number 6", Descripcion = "number 6", Abreviatura = "number 6", RamoId = "ramo 1" },
+                new Cobertura_Form_Item { Id = "number 7", Descripcion = "number 7", Abreviatura = "number 7", RamoId = "ramo 2" },
+                new Cobertura_Form_Item { Id = "number 8", Descripcion = "number 8", Abreviatura = "number 8", RamoId = "ramo 3" },
+                new Cobertura_Form_Item { Id = "number 9", Descripcion = "number 9", Abreviatura = "number 9", RamoId = "ramo 4" },
+                new Cobertura_Form_Item { Id = "number 10", Descripcion = "number 10", Abreviatura = "number 10", RamoId = "ramo 5" },
+            };
 
-            if (_ramos is null)
-            {
-                return "<indefinido>";
-            }
+            return list;
+        }
 
-            var ramo = _ramos.Where(x => x.Id == ramoId).FirstOrDefault();
+        private List<Ramo> GetRamoItems()
+        {
+            var list = new List<Ramo>() {
+                new Ramo ("ramo 1", "ramo 1"),
+                new Ramo ("ramo 2", "ramo 2"),
+                new Ramo ("ramo 3", "ramo 3"),
+                new Ramo ("ramo 4", "ramo 4"),
+                new Ramo ("ramo 5", "ramo 5"),
+            };
 
-            if (ramo is null)
-            {
-                return "<indefinido>";
-            }
-
-            return ramo.Descripcion;
+            return list;
         }
 
         // =====================================================================================================
         // para leer los ramos desde el db 
-        private record Ramo(string Id, string Descripcion, string Abreviatura);
+        private record Ramo(string Id, string Descripcion);
 
         // ===============================================================================================================
         // para mostrar un mensaje al usuario con MudAlert 
