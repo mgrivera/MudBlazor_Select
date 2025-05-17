@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
 using scrweb_blazor.Components;
 //using scrweb_blazor.Components.Account;
-using scrweb_blazor.Data;
+//using scrweb_blazor.Data;
 //using scrweb_blazor.Models.EF_Core;
 using MudBlazor.Services;
 
@@ -36,7 +36,7 @@ builder.Services.AddMudServices();
 
 var connectionString = builder.Configuration.GetConnectionString("scrweb_blazor") ?? throw new InvalidOperationException("Connection string 'scrweb_blazor' not found.");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

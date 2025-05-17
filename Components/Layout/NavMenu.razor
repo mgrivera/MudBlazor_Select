@@ -1,5 +1,5 @@
 ﻿@* @using Microsoft.AspNetCore.Identity *@
-@using scrweb_blazor.Data
+@* @using scrweb_blazor.Data *@
 
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
@@ -44,9 +44,9 @@
 
     private string? currentUrl;
 
-    [CascadingParameter]
-    private Task<AuthenticationState>? authenticationStateTask { get; set; }
-    ApplicationUser? _user;
+    // [CascadingParameter]
+    // private Task<AuthenticationState>? authenticationStateTask { get; set; }
+    // ApplicationUser? _user;
 
     protected override async Task OnInitializedAsync()
     {
