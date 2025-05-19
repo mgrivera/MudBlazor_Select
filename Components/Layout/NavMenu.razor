@@ -1,11 +1,6 @@
-﻿@* @using Microsoft.AspNetCore.Identity *@
-@* @using scrweb_blazor.Data *@
-
+﻿
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
-
-@* @using Microsoft.AspNetCore.Authorization
-@inject UserManager<ApplicationUser> _UserManager *@
 
 @rendermode InteractiveServer
 
@@ -21,20 +16,8 @@
         <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
 
-            <FluentNavLink Href="/tablas" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">Tablas</FluentNavLink>
+            <FluentNavLink Href="/tablas" Icon="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())" IconColor="Color.Accent">My Lists</FluentNavLink>
 
-          @*   <FluentNavLink Href="auth" Icon="@(new Icons.Regular.Size20.LockClosedKey())" IconColor="Color.Accent">Auth Required</FluentNavLink>
-            <AuthorizeView>
-                <Authorized>
-                    <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
-                    <form action="Account/Logout" method="post">
-                        <AntiforgeryToken />
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <FluentButton Type="ButtonType.Submit" Style="width: 100%;">logout</FluentButton>
-                    </form>
-                </Authorized>
-
-            </AuthorizeView> *@
         </FluentNavMenu>
     </nav>
 </div>
@@ -43,10 +26,6 @@
     private bool expanded = true;
 
     private string? currentUrl;
-
-    // [CascadingParameter]
-    // private Task<AuthenticationState>? authenticationStateTask { get; set; }
-    // ApplicationUser? _user;
 
     protected override async Task OnInitializedAsync()
     {
